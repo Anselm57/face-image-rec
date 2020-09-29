@@ -9,11 +9,10 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
 
-
 const particlesOptions = {
   particles: {
     number: {
-      value: 90,
+      value: 30,
       density: {
         enable: true,
         value_area: 800
@@ -23,25 +22,25 @@ const particlesOptions = {
 }
 
 const initialState = {
-      input: '',
-      imageUrl: '',
-      box: {},
-      route: 'signin',
-      isSignedIn: false,
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        entries: 0,
-        joined: ''
-      }
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: ''
+  }
 }
+
 class App extends Component {
   constructor() {
     super();
     this.state = initialState;
   }
-
 
   loadUser = (data) => {
     this.setState({user: {
@@ -76,7 +75,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-      fetch('https://limitless-ridge-77174.herokuapp.com/imageurl', {
+      fetch('http://localhost:3000/imageurl', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -86,7 +85,7 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('https://limitless-ridge-77174.herokuapp.com/image', {
+          fetch('http://localhost:3000/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -107,9 +106,9 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState(initialState);
+      this.setState(initialState)
     } else if (route === 'home') {
-      this.setState({isSignedIn: true});
+      this.setState({isSignedIn: true})
     }
     this.setState({route: route});
   }
